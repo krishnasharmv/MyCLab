@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0D2E26">
+<title>My C Lab | Krishna Sharma</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0D2E26;
+  --surface: #103D32;
+  --surface-alt: #0a261f;
+  --cream: #F5E9D5;
+  --beige: #D8B99A;
+  --sage: #83A987;
+  --line: rgba(245, 233, 213, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fluid Container */
+.wrap {
+  width: min(1040px, 100% - clamp(20px, 5vw, 40px));
+  margin-inline: auto;
+}
+
+/* Header */
+header {
+  border-bottom: 1px solid var(--line);
+  padding: clamp(24px, 5vw, 44px) 0;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 8vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--cream);
+}
+
+header h1 em {
+  color: var(--beige);
+  font-style: normal;
+}
+
+header p {
+  color: var(--sage);
+  font-size: clamp(12px, 3.5vw, 14px);
+  margin-top: 8px;
+}
+
+/* Responsive Grid */
+main {
+  flex: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(14px, 3vw, 24px);
+  padding: clamp(20px, 4vw, 40px) 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: clamp(16px, 4vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 5vw, 26px);
+  color: var(--beige);
+  line-height: 1.2;
+}
+
+.card p {
+  font-size: clamp(12px, 3vw, 13px);
+  color: #cdd8d2;
+}
+
+/* Input Fields & Buttons */
+.label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sage);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+input {
+  flex: 1 1 80px;
+  min-width: 0;
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--cream);
+  font-size: 16px; /* 16px prevents automatic zoom on mobile browsers */
+}
+
+input:focus {
+  outline: 1px solid var(--sage);
+}
+
+button {
+  background: #075747;
+  color: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.15s ease, transform 0.1s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  min-height: 44px;
+}
+
+button:active {
+  transform: scale(0.97);
+  background: #0a735e;
+}
+
+/* Displays & Terminal Consoles */
+.display, .console {
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.display {
+  text-align: right;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.display small {
+  display: block;
+  font-size: 12px;
+  color: var(--sage);
+  word-break: break-all;
+}
+
+.display strong {
+  font-size: clamp(20px, 6vw, 24px);
+  color: var(--beige);
+  word-break: break-all;
+}
+
+.console {
+  font-size: clamp(11px, 3vw, 12px);
+  color: #e2ede7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 94px;
+  line-height: 1.6;
+}
+
+/* Calculator Grid */
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.key {
+  padding: 12px 0;
+  font-size: 15px;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key.act {
+  background: #895440;
+  border-color: #895440;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+  text-align: center;
+  font-size: clamp(11px, 3vw, 12px);
+  color: var(--sage);
+  margin-top: auto;
+}
+
+/* Ultra-compact screen adjustments (screens under 360px) */
+@media (max-width: 360px) {
+  .calc-grid {
+    gap: 4px;
+  }
+  .key {
+    padding: 10px 0;
+    font-size: 13px;
+  }
+  .input-row button {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>My C <em>Lab</em></h1>
+    <p>Krishna Sharma — C Programming Algorithms & Experiments</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <!-- Experiment 1: Calculator -->
+    <article class="card">
+      <h2>Arithmetic Engine</h2>
+      <p>Simulates C arithmetic operators and register calculation.</p>
+      
+      <div class="display">
+        <small id="calc-expr">0</small>
+        <strong id="calc-val">0</strong>
+      </div>
+      <div class="calc-grid">
+        <button type="button" class="key act" onclick="calcClear()">AC</button>
+        <button type="button" class="key" onclick="calcOp('%')">%</button>
+        <button type="button" class="key" onclick="calcOp('/')">/</button>
+        <button type="button" class="key" onclick="calcOp('*')">×</button>
+        <button type="button" class="key" onclick="calcNum('7')">7</button>
+        <button type="button" class="key" onclick="calcNum('8')">8</button>
+        <button type="button" class="key" onclick="calcNum('9')">9</button>
+        <button type="button" class="key" onclick="calcOp('-')">-</button>
+        <button type="button" class="key" onclick="calcNum('4')">4</button>
+        <button type="button" class="key" onclick="calcNum('5')">5</button>
+        <button type="button" class="key" onclick="calcNum('6')">6</button>
+        <button type="button" class="key" onclick="calcOp('+')">+</button>
+        <button type="button" class="key" onclick="calcNum('1')">1</button>
+        <button type="button" class="key" onclick="calcNum('2')">2</button>
+        <button type="button" class="key" onclick="calcNum('3')">3</button>
+        <button type="button" class="key act" onclick="calcEquals()">=</button>
+        <button type="button" class="key" onclick="calcNum('0')" style="grid-column: span 2">0</button>
+        <button type="button" class="key" onclick="calcNum('.')">.</button>
+      </div>
+    </article>
+
+    <!-- Experiment 2: Number Analysis -->
+    <article class="card">
+      <h2>Number Analysis</h2>
+      <p>Evaluates primality, factorial recurrence, and Fibonacci values.</p>
+      
+      <div class="label">Integer Input (n)</div>
+      <div class="input-row">
+        <input type="number" id="num-input" value="7" min="0" max="25" inputmode="numeric">
+        <button type="button" onclick="runAnalysis()">Run</button>
+      </div>
+      <div class="console" id="num-console">> Input: 7
+> Prime: Yes
+> Factorial: 5040
+> Fibonacci: 13</div>
+    </article>
+
+    <!-- Experiment 3: Bitwise Inspector -->
+    <article class="card">
+      <h2>Bitwise Inspector</h2>
+      <p>Performs low-level C bitwise AND, OR, and XOR masking.</p>
+      
+      <div class="label">Operands (A, B)</div>
+      <div class="input-row">
+        <input type="number" id="bit-a" value="12" placeholder="A" inputmode="numeric">
+        <input type="number" id="bit-b" value="5" placeholder="B" inputmode="numeric">
+        <button type="button" onclick="runBitwise()">Compute</button>
+      </div>
+      <div class="console" id="bit-console">> A  : 00001100 (12)
+> B  : 00000101 (5)
+> AND: 00000100 (4)
+> OR : 00001101 (13)
+> XOR: 00001001 (9)</div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; Krishna Sharma — My C Lab</p>
+</footer>
+
+<script>
+// Calculator Logic
+let expr = '';
+const exprEl = document.getElementById('calc-expr');
+const valEl = document.getElementById('calc-val');
+
+function calcNum(n) {
+  if (expr === '0' && n !== '.') expr = '';
+  expr += n;
+  exprEl.textContent = expr;
+}
+
+function calcOp(op) {
+  if (expr !== '' && !isNaN(expr.slice(-1))) expr += op;
+  exprEl.textContent = expr;
+}
+
+function calcClear() {
+  expr = '';
+  exprEl.textContent = '0';
+  valEl.textContent = '0';
+}
+
+function calcEquals() {
+  try {
+    const res = Function('"use strict";return (' + expr.replace(/[^0-9+\-*/%.]/g, '') + ')')();
+    valEl.textContent = Number.isFinite(res) ? res : 'Error';
+  } catch {
+    valEl.textContent = 'Error';
+  }
+}
+
+// Number Analysis Logic
+function runAnalysis() {
+  const n = parseInt(document.getElementById('num-input').value, 10);
+  const out = document.getElementById('num-console');
+  if (isNaN(n) || n < 0) {
+    out.textContent = '> Error: Enter a valid positive integer.';
+    return;
+  }
+
+  let prime = n > 1;
+  for (let i = 2; i * i <= n; i++) {
+    if (n % i === 0) { prime = false; break; }
+  }
+
+  let fact = 1n;
+  for (let i = 2n; i <= BigInt(n); i++) fact *= i;
+
+  let a = 0, b = 1;
+  for (let i = 0; i < n; i++) {
+    let t = a + b; a = b; b = t;
+  }
+
+  out.textContent = `> Input: ${n}\n> Prime: ${prime ? 'Yes' : 'No'}\n> Factorial: ${fact}\n> Fibonacci: ${a}`;
+}
+
+// Bitwise Logic
+function runBitwise() {
+  const a = parseInt(document.getElementById('bit-a').value, 10) || 0;
+  const b = parseInt(document.getElementById('bit-b').value, 10) || 0;
+  const bin = v => (v & 0xFF).toString(2).padStart(8, '0');
+
+  document.getElementById('bit-console').textContent = 
+`> A  : ${bin(a)} (${a})
+> B  : ${bin(b)} (${b})
+> AND: ${bin(a & b)} (${a & b})
+> OR : ${bin(a | b)} (${a | b})
+> XOR: ${bin(a ^ b)} (${a ^ b})`;
+}
+</script>
+</body>
+</html>
